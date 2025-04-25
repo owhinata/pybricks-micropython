@@ -236,10 +236,12 @@ static void pbdrv_stm32_usb_serial_transmit(void) {
     }
 
     if (tx_size > 0) {
+        usb_out_busy = true;
         USBD_CDC_SetTxBuffer(&husbd, usb_out_buf, tx_size);
         if (USBD_CDC_TransmitPacket(&husbd) == USBD_OK) {
-            usb_out_busy = true;
             tx_size = 0;
+        } else {
+            usb_out_busy = false;
         }
     } 
 }
