@@ -128,6 +128,10 @@ CFLAGS += -Os -DNODEBUG
 CFLAGS += -fdata-sections -ffunction-sections
 endif
 
+ifeq ($(PYBRICKS_USE_PORT_F_AS_DEBUG_UART), 1)
+CFLAGS += -DPYBRICKS_USE_PORT_F_AS_DEBUG_UART
+endif
+
 # Required for STM32 library
 CFLAGS += -D$(PB_CMSIS_MCU)
 

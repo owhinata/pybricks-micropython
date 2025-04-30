@@ -3,8 +3,7 @@
 // Copyright (c) 2022 Embedded and Real-Time Systems Laboratory,
 //            Graduate School of Information Science, Nagoya Univ., JAPAN
 
-// TODO:
-//#include <pbio/config.h>
+#include <pbioconfig.h>
 
 #define PBDRV_ON_ASP3                               (1)
 
@@ -65,8 +64,7 @@
 #define PBDRV_CONFIG_COUNTER                        (1)
 #define PBDRV_CONFIG_COUNTER_NUM_DEV                (6)
 #define PBDRV_CONFIG_COUNTER_LPF2                   (1)
-//#define PBDRV_CONFIG_COUNTER_LPF2_NUM_DEV           (5) // TODO
-#define PBDRV_CONFIG_COUNTER_LPF2_NUM_DEV           (6)
+#define PBDRV_CONFIG_COUNTER_LPF2_NUM_DEV           (6 - PBIO_CONFIG_USE_PORT_F_AS_ASP3_DEBUG_UART)
 
 #define PBDRV_CONFIG_GPIO                           (1)
 #define PBDRV_CONFIG_GPIO_STM32F4                   (1)
@@ -79,11 +77,13 @@
 
 #define PBDRV_CONFIG_IOPORT                         (1)
 #define PBDRV_CONFIG_IOPORT_LPF2                    (1)
-//#define PBDRV_CONFIG_IOPORT_LPF2_NUM_PORTS          (5) //TODO
-#define PBDRV_CONFIG_IOPORT_LPF2_NUM_PORTS          (6)
+#define PBDRV_CONFIG_IOPORT_LPF2_NUM_PORTS          (6 - PBIO_CONFIG_USE_PORT_F_AS_ASP3_DEBUG_UART)
 #define PBDRV_CONFIG_IOPORT_LPF2_FIRST_PORT         PBIO_PORT_ID_A
-//#define PBDRV_CONFIG_IOPORT_LPF2_LAST_PORT          PBIO_PORT_ID_E
+#if PBIO_CONFIG_USE_PORT_F_AS_ASP3_DEBUG_UART
+#define PBDRV_CONFIG_IOPORT_LPF2_LAST_PORT          PBIO_PORT_ID_E
+#else
 #define PBDRV_CONFIG_IOPORT_LPF2_LAST_PORT          PBIO_PORT_ID_F
+#endif
 
 #define PBDRV_CONFIG_LED                            (1)
 #define PBDRV_CONFIG_LED_NUM_DEV                    (5)
@@ -121,8 +121,7 @@
 
 #define PBDRV_CONFIG_UART                           (1)
 #define PBDRV_CONFIG_UART_STM32F4_LL_IRQ            (1)
-//#define PBDRV_CONFIG_UART_STM32F4_LL_IRQ_NUM_UART   (5)
-#define PBDRV_CONFIG_UART_STM32F4_LL_IRQ_NUM_UART   (6)
+#define PBDRV_CONFIG_UART_STM32F4_LL_IRQ_NUM_UART   (6 - PBIO_CONFIG_USE_PORT_F_AS_ASP3_DEBUG_UART)
 
 #define PBDRV_CONFIG_USB                            (1)
 #define PBDRV_CONFIG_USB_STM32F4                    (1)
@@ -136,9 +135,7 @@
 #define PBDRV_CONFIG_HAS_PORT_C (1)
 #define PBDRV_CONFIG_HAS_PORT_D (1)
 #define PBDRV_CONFIG_HAS_PORT_E (1)
-//#define PBDRV_CONFIG_HAS_PORT_F (!PBIO_CONFIG_USE_PORT_F_AS_ASP3_DEBUG_UART)
-//#define PBDRV_CONFIG_HAS_PORT_F (0) // TODO:
-#define PBDRV_CONFIG_HAS_PORT_F (1)
+#define PBDRV_CONFIG_HAS_PORT_F (!PBIO_CONFIG_USE_PORT_F_AS_ASP3_DEBUG_UART)
 
 #define PBDRV_CONFIG_FIRST_MOTOR_PORT       PBIO_PORT_ID_A
 #if !PBDRV_CONFIG_HAS_PORT_F
@@ -146,7 +143,6 @@
 #else
 #define PBDRV_CONFIG_LAST_MOTOR_PORT        PBIO_PORT_ID_F
 #endif
-//#define PBDRV_CONFIG_NUM_MOTOR_CONTROLLER   (5)
-#define PBDRV_CONFIG_NUM_MOTOR_CONTROLLER   (6)
+#define PBDRV_CONFIG_NUM_MOTOR_CONTROLLER   (6 - PBIO_CONFIG_USE_PORT_F_AS_ASP3_DEBUG_UART)
 
 #define PBDRV_CONFIG_SYS_CLOCK_RATE 96000000
